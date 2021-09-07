@@ -1,0 +1,12 @@
+{
+  "*.spec.js": {"alternate": "{}.js", "start": "yarn jest:watch {file}", "dispatch": "yarn jest --no-coverage {file}"},
+  "*.js": {"alternate": "{}.spec.js", "start": "yarn jest:watch {}.spec.js", "dispatch": "yarn jest --no-coverage {}.spec.js"},
+  "*.spec.ts": {"alternate": "{}.ts", "start": "yarn jest:watch {file}", "dispatch": "yarn jest --no-coverage {file}"},
+  "*.ts": {"alternate": "{}.spec.ts", "start": "yarn jest:watch {}.spec.ts", "dispatch": "yarn jest --no-coverage {}.spec.ts"},
+  "*.spec.tsx": {"alternate": "{}.tsx", "start": "yarn jest:watch {file}", "dispatch": "yarn jest --no-coverage {file}"},
+  "*.tsx": {"alternate": "{}.spec.tsx", "start": "yarn jest:watch {}.spec.tsx", "dispatch": "yarn jest --no-coverage {}.spec.tsx"},
+  "spec/*_spec.rb": {"alternate": "app/{}.rb", "start": "bundle exec guard"},
+  "app/*.rb": {"alternate": "spec/{}_spec.rb", "start": "bundle exec guard"},
+  "*_test.go": {"alternate": "{}.go", "dispatch": "go test {file}"},
+  "*.go": {"alternate": "{}_test.go", "dispatch": "go test {}_test.go"}
+}
