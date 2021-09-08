@@ -20,7 +20,7 @@ func Test_annotates_the_lines_with_the_candidates(t *testing.T) {
 		[9]int{0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}
 
-	expectedAnnotations := src.Annotations{0: {1: []int{5, 8}, 2: []int{8, 9}, 3: []int{7, 9}, 6: []int{1, 5, 7}, 7: []int{1, 7}, 8: []int{1, 4, 5, 7}}}
+	expectedAnnotations := src.Annotations{0: {1: []int{1, 4, 5, 7, 8, 9}, 2: []int{1, 4, 5, 7, 8, 9}, 3: []int{1, 4, 5, 7, 8, 9}, 6: []int{1, 4, 5, 7, 8, 9}, 7: []int{1, 4, 5, 7, 8, 9}, 8: []int{1, 4, 5, 7, 8, 9}}}
 
 	assert.Equal(t, expectedAnnotations, board.Annotate())
 }
