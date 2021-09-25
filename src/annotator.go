@@ -1,36 +1,20 @@
 package board
 
-func AnnotateMissingNumbers(l []int) map[int][]int {
-	annotations := make(map[int][]int)
-	const NOT_FILLED = 0
+type Annotations map[int]map[int][]int
 
-	for i, cell := range l {
-		if cell == NOT_FILLED {
-			annotations[i] = FindMissingNumbers(l)
-		}
-	}
-
-	return annotations
+func NewAnnotation() Annotations {
+	return make(Annotations)
 }
 
-func FindMissingNumbers(filledNumbers []int) []int {
-	var missingNumbers []int
+func (a Annotations) Annotate(b Board) Annotations {
+	for i := 0; i <= 8; i++ {
+		a[i] = make(map[int][]int)
 
-	for number := 1; number <= 9; number++ {
-		if !isNumberInLine(filledNumbers, number) {
-			missingNumbers = append(missingNumbers, number)
+		for j := 0; j <= 8; j++ {
+			if b[i][j] == 0 {
+				a[i][j] = b.findMissingNumbersInCell(i, j)
+			}
 		}
 	}
-
-	return missingNumbers
-}
-
-func isNumberInLine(l []int, number int) bool {
-	for _, cell := range l {
-		if cell == number {
-			return true
-		}
-	}
-
-	return false
+	return a
 }
