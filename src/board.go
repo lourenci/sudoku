@@ -2,7 +2,55 @@ package board
 
 type Board [9][9]int
 
-func (b Board) getNumbersOfCol(colNumber int) [9]int {
+func (b Board) MissingNumbersInCell(rowNumber int, colNumber int) []int {
+	var missingNumbers []int
+
+	if b.isCellFilled(rowNumber, colNumber) {
+		return nil
+	}
+
+	for number := 1; number <= 9; number++ {
+		if !b.isNumberFilledInBoard(rowNumber, colNumber, number) {
+			missingNumbers = append(missingNumbers, number)
+		}
+	}
+
+	return missingNumbers
+}
+
+func (b Board) isCellFilled(rowNumber int, colNumber int) bool {
+	if b[rowNumber][colNumber] != 0 {
+		return true
+	}
+	return false
+}
+
+func (b Board) isNumberFilledInBoard(rowNumber int, colNumber int, number int) bool {
+	if b.isNumberFilledInRow(rowNumber, number) {
+		return true
+	}
+
+	if b.isNumberFilledInCol(colNumber, number) {
+		return true
+	}
+
+	if b.isNumberFilledInHouse(getHouseNumberOfCell(rowNumber, colNumber), number) {
+		return true
+	}
+
+	return false
+}
+
+func (b Board) isNumberFilledInRow(rowNumber int, number int) bool {
+	return FindIndex(b[rowNumber][:], number) != nil
+}
+
+func (b Board) isNumberFilledInCol(colNumber int, number int) bool {
+	colNumbers := b.getFilledNumbersOfCol(colNumber)
+	return FindIndex(colNumbers[:], number) != nil
+}
+
+func (b Board) getFilledNumbersOfCol(colNumber int) [9]int {
 	var n [9]int
 
 	for i, row := range b {
@@ -12,7 +60,25 @@ func (b Board) getNumbersOfCol(colNumber int) [9]int {
 	return n
 }
 
-func (b Board) getNumbersOfHouse(houseNumber int) [9]int {
+func (b Board) isNumberFilledInHouse(houseNumber int, number int) bool {
+	numbersInHouse := b.getFilledNumbersOfHouse(houseNumber)
+	return FindIndex(numbersInHouse[:], number) != nil
+}
+
+func getHouseNumberOfCell(rowNumber, colNumber int) int {
+	for i := 0; i <= 8; i++ {
+		startRow := i / 3 * 3
+		startCol := i % 3 * 3
+
+		if startRow+3 > rowNumber && startCol+3 > colNumber {
+			return i
+		}
+	}
+
+	panic("Out of range")
+}
+
+func (b Board) getFilledNumbersOfHouse(houseNumber int) [9]int {
 	startRow := houseNumber / 3 * 3
 	endRow := startRow + 3
 	startCol := houseNumber % 3 * 3
@@ -28,46 +94,4 @@ func (b Board) getNumbersOfHouse(houseNumber int) [9]int {
 	}
 
 	return numbers
-}
-
-func GetHouseNumberOfCell(rowNumber, colNumber int) int {
-	for i := 0; i <= 8; i++ {
-		startRow := i / 3 * 3
-		startCol := i % 3 * 3
-
-		if startRow+3 > rowNumber && startCol+3 > colNumber {
-			return i
-		}
-	}
-
-	panic("Out of range")
-}
-
-func (b Board) findMissingNumbersInCell(i int, j int) []int {
-	var missingNumbers []int
-
-	var isNumberMissing bool
-
-	for number := 1; number <= 9; number++ {
-		isNumberMissing = FindIndex(b[i][:], number) == nil
-		if !isNumberMissing {
-			continue
-		}
-
-		colNumbers := b.getNumbersOfCol(j)
-		isNumberMissing = FindIndex(colNumbers[:], number) == nil
-		if !isNumberMissing {
-			continue
-		}
-
-		numbersInHouse := b.getNumbersOfHouse(GetHouseNumberOfCell(i, j))
-		isNumberMissing = FindIndex(numbersInHouse[:], number) == nil
-		if !isNumberMissing {
-			continue
-		}
-
-		missingNumbers = append(missingNumbers, number)
-	}
-
-	return missingNumbers
 }

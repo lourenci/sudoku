@@ -89,4 +89,3 @@ func Test_annotates_with_the_candidates(t *testing.T) {
 
 	assert.Equal(t, expectedAnnotations, src.NewAnnotation().Annotate(board))
 }
-

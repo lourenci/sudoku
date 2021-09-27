@@ -3,16 +3,23 @@ package board_test
 import (
 	"testing"
 
-	board "github.com/lourenci/sudoku/src"
+	src "github.com/lourenci/sudoku/src"
 	"github.com/stretchr/testify/assert"
 )
 
+func Test_returns_the_missing_numbers_of_a_cell(t *testing.T) {
+	board := src.Board{
+		[9]int{6, 0, 0, 0, 2, 3, 0, 0, 0},
+		[9]int{7, 4, 0, 1, 0, 0, 0, 0, 9},
+		[9]int{0, 0, 1, 4, 0, 0, 6, 2, 8},
+		[9]int{0, 9, 5, 6, 0, 0, 0, 0, 0},
+		[9]int{0, 1, 0, 2, 3, 0, 0, 6, 0},
+		[9]int{2, 0, 0, 5, 0, 0, 8, 4, 0},
+		[9]int{1, 0, 6, 0, 0, 0, 4, 5, 0},
+		[9]int{0, 0, 0, 0, 4, 1, 0, 8, 0},
+		[9]int{0, 7, 3, 8, 5, 0, 0, 0, 2},
+	}
 
-func Test_get_house_number_of_a_cell(t *testing.T) {
-	assert.Equal(t, 0, board.GetHouseNumberOfCell(0, 0))
-	assert.Equal(t, 0, board.GetHouseNumberOfCell(2, 2))
-	assert.Equal(t, 4, board.GetHouseNumberOfCell(3, 3))
-	assert.Equal(t, 4, board.GetHouseNumberOfCell(5, 5))
-	assert.Equal(t, 8, board.GetHouseNumberOfCell(6, 6))
-	assert.Equal(t, 8, board.GetHouseNumberOfCell(8, 8))
+	assert.Nil(t, board.MissingNumbersInCell(0, 0))
+	assert.Equal(t, []int{4, 7, 8, 9}, board.MissingNumbersInCell(4, 5))
 }
