@@ -1,4 +1,4 @@
-package board
+package utils
 
 func FindIndex(slice []int, number int) *int {
 	for i, v := range slice {

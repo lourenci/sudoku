@@ -1,14 +1,14 @@
-package board_test
+package sudoku_test
 
 import (
 	"testing"
 
-	src "github.com/lourenci/sudoku/src"
+	sudoku "github.com/lourenci/sudoku/src"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_returns_the_missing_numbers_of_a_cell(t *testing.T) {
-	board := src.Board{
+	board := sudoku.Board{
 		[9]int{6, 0, 0, 0, 2, 3, 0, 0, 0},
 		[9]int{7, 4, 0, 1, 0, 0, 0, 0, 9},
 		[9]int{0, 0, 1, 4, 0, 0, 6, 2, 8},

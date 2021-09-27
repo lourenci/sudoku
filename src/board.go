@@ -1,4 +1,6 @@
-package board
+package sudoku
+
+import "github.com/lourenci/sudoku/src/utils"
 
 type Board [9][9]int
 
@@ -42,12 +44,12 @@ func (b Board) isNumberFilledInBoard(rowNumber int, colNumber int, number int) b
 }
 
 func (b Board) isNumberFilledInRow(rowNumber int, number int) bool {
-	return FindIndex(b[rowNumber][:], number) != nil
+	return utils.FindIndex(b[rowNumber][:], number) != nil
 }
 
 func (b Board) isNumberFilledInCol(colNumber int, number int) bool {
 	colNumbers := b.getFilledNumbersOfCol(colNumber)
-	return FindIndex(colNumbers[:], number) != nil
+	return utils.FindIndex(colNumbers[:], number) != nil
 }
 
 func (b Board) getFilledNumbersOfCol(colNumber int) [9]int {
@@ -62,7 +64,7 @@ func (b Board) getFilledNumbersOfCol(colNumber int) [9]int {
 
 func (b Board) isNumberFilledInHouse(houseNumber int, number int) bool {
 	numbersInHouse := b.getFilledNumbersOfHouse(houseNumber)
-	return FindIndex(numbersInHouse[:], number) != nil
+	return utils.FindIndex(numbersInHouse[:], number) != nil
 }
 
 func getHouseNumberOfCell(rowNumber, colNumber int) int {
