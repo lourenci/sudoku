@@ -1,8 +1,22 @@
 package sudoku
 
-import "github.com/lourenci/sudoku/src/utils"
+import (
+	"github.com/lourenci/sudoku/src/utils"
+)
 
 type Board [9][9]int
+
+func (b Board) IsComplete() bool {
+	for _, row := range b {
+		for _, number := range row {
+			if number == 0 {
+				return false
+			}
+		}
+	}
+
+	return true
+}
 
 func (b Board) MissingNumbersInCell(rowNumber int, colNumber int) []int {
 	var missingNumbers []int
