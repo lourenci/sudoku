@@ -1,8 +1,8 @@
 package solver
 
-type NakedSingle struct{}
+type HiddenSingle struct {}
 
-func (n NakedSingle) Find(annotations Annotations) []Coordinate {
+func (h HiddenSingle) Find(annotations Annotations) []Coordinate {
 	var findedNumbers []Coordinate
 
 	for x, col := range annotations {

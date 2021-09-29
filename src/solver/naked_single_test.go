@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_finds_for_only_one_missing_number(t *testing.T) {
+func Test_finds_for_naked_single(t *testing.T) {
 	annotations := solver.Annotations{
 		0: {
 			1: []int{5, 8},
@@ -75,5 +75,9 @@ func Test_finds_for_only_one_missing_number(t *testing.T) {
 		},
 	}
 
-	assert.Equal(t, []solver.Coordinate{{1, 7, 3}, {5, 2, 7}}, solver.NewStrategy(annotations).Find())
+	assert.ElementsMatch(
+		t,
+		[]solver.Coordinate{{X: 1, Y: 7, Number: 3}, {X: 5, Y: 2, Number: 7}},
+		solver.NakedSingle{}.Find(annotations),
+	)
 }

@@ -1,10 +1,27 @@
 package sudoku
 
 import (
+	"strconv"
+
 	"github.com/lourenci/sudoku/src/utils"
 )
 
 type Board [9][9]int
+
+// TODO should this be moved to a parser?
+// TODO validate the board
+func NewBoardFromString(board string) Board {
+	var b Board
+
+	for i := 0; i <= 8; i++ {
+		for j := 0; j <= 8; j++ {
+			number, _ := strconv.Atoi(string(board[i * 9 + j]))
+			b[i][j] = number
+		}
+	}
+
+	return b
+}
 
 func (b Board) IsComplete() bool {
 	for _, row := range b {
