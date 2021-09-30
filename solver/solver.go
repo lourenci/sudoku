@@ -1,6 +1,6 @@
 package solver
 
-import sudoku "github.com/lourenci/sudoku/src"
+import "github.com/lourenci/sudoku"
 
 type Strategy interface {
 	Find(Annotations) []Coordinate

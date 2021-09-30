@@ -3,7 +3,7 @@ package sudoku
 import (
 	"strconv"
 
-	"github.com/lourenci/sudoku/src/utils"
+	"github.com/lourenci/sudoku/utils"
 )
 
 type Board [9][9]int
@@ -15,7 +15,7 @@ func NewBoardFromString(board string) Board {
 
 	for i := 0; i <= 8; i++ {
 		for j := 0; j <= 8; j++ {
-			number, _ := strconv.Atoi(string(board[i * 9 + j]))
+			number, _ := strconv.Atoi(string(board[i*9+j]))
 			b[i][j] = number
 		}
 	}

@@ -3,13 +3,12 @@ package solver_test
 import (
 	"testing"
 
-	sudoku "github.com/lourenci/sudoku/src"
-	"github.com/lourenci/sudoku/src/solver"
+	"github.com/lourenci/sudoku"
+	"github.com/lourenci/sudoku/solver"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_annotates_with_the_candidates(t *testing.T) {
-
 
 	board := sudoku.Board{
 		[9]int{6, 0, 0, 0, 2, 3, 0, 0, 0},

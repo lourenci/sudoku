@@ -3,7 +3,7 @@ package utils_test
 import (
 	"testing"
 
-	"github.com/lourenci/sudoku/src/utils"
+	"github.com/lourenci/sudoku/utils"
 	"github.com/stretchr/testify/assert"
 )
 

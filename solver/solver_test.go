@@ -3,8 +3,9 @@ package solver_test
 import (
 	"testing"
 
-	sudoku "github.com/lourenci/sudoku/src"
-	"github.com/lourenci/sudoku/src/solver"
+	"github.com/lourenci/sudoku"
+	"github.com/lourenci/sudoku/solver"
+	"github.com/lourenci/sudoku/solver/strategies"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -33,5 +34,5 @@ func Test_solves_the_board_using_the_naked_single_strategy(t *testing.T) {
 		{0, 0, 9, 0, 7, 0, 4, 0, 3},
 	}
 
-	assert.Equal(t, expectedBoard, solver.NewSolve([]solver.Strategy{solver.NakedSingle{}}).Solve(board))
+	assert.Equal(t, expectedBoard, solver.NewSolve([]solver.Strategy{strategies.NakedSingle{}}).Solve(board))
 }
