@@ -34,5 +34,5 @@ func Test_solves_the_board_using_the_naked_single_strategy(t *testing.T) {
 		{0, 0, 9, 0, 7, 0, 4, 0, 3},
 	}
 
-	assert.Equal(t, expectedBoard, solver.NewSolve([]solver.Strategy{strategies.NakedSingle{}}).Solve(board))
+	assert.Equal(t, expectedBoard, solver.NewSolve([]solver.Strategy{strategies.HiddenSingle{}}).Solve(board))
 }
