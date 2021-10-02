@@ -6,7 +6,7 @@ import (
 	"github.com/lourenci/sudoku"
 )
 
-type StringBoard struct {}
+type StringBoard struct{}
 
 func (s StringBoard) Parse(input string) sudoku.Board {
 	var b sudoku.Board

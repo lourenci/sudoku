@@ -3,6 +3,7 @@ package strategies_test
 import (
 	"testing"
 
+	"github.com/lourenci/sudoku"
 	"github.com/lourenci/sudoku/solver"
 	"github.com/lourenci/sudoku/solver/strategies"
 	"github.com/stretchr/testify/assert"
@@ -78,7 +79,7 @@ func Test_finds_for_naked_single(t *testing.T) {
 
 	assert.ElementsMatch(
 		t,
-		[]solver.Coordinate{{X: 1, Y: 7, Number: 3}, {X: 5, Y: 2, Number: 7}},
+		[]solver.Hint{{Coordinate: sudoku.Coordinate{X: 1, Y: 7}, Number: 3}, {Coordinate: sudoku.Coordinate{X: 5, Y: 2}, Number: 7}},
 		strategies.NakedSingle{}.Find(annotations),
 	)
 }

@@ -1,16 +1,14 @@
 package solver
 
+import "github.com/lourenci/sudoku"
+
 type Annotations map[int]map[int][]int
 
 func NewAnnotation() Annotations {
 	return make(Annotations)
 }
 
-type Board interface {
-	MissingNumbersInCell(int, int) []int
-}
-
-func (a Annotations) Annotate(b Board) Annotations {
+func (a Annotations) Annotate(b sudoku.Board) Annotations {
 	for rowNumber := 0; rowNumber <= 8; rowNumber++ {
 		a[rowNumber] = make(map[int][]int)
 
@@ -21,7 +19,7 @@ func (a Annotations) Annotate(b Board) Annotations {
 	return a
 }
 
-func (a Annotations) annotateCellWithMissingNumbers(b Board, rowNumber int, colNumber int) {
+func (a Annotations) annotateCellWithMissingNumbers(b sudoku.Board, rowNumber int, colNumber int) {
 	missingNumbers := b.MissingNumbersInCell(rowNumber, colNumber)
 	if missingNumbers != nil {
 		a[rowNumber][colNumber] = missingNumbers

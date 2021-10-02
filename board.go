@@ -4,11 +4,12 @@ import (
 	"github.com/lourenci/sudoku/utils"
 )
 
-type Parser interface {
-	Parse (input interface{}) Board
-}
-
 type Board [9][9]int
+
+type Coordinate struct {
+	X int
+	Y int
+}
 
 func (b Board) IsComplete() bool {
 	for _, row := range b {

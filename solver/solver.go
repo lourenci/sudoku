@@ -3,12 +3,11 @@ package solver
 import "github.com/lourenci/sudoku"
 
 type Strategy interface {
-	Find(Annotations) []Coordinate
+	Find(Annotations) []Hint
 }
 
-type Coordinate struct {
-	X      int
-	Y      int
+type Hint struct {
+	sudoku.Coordinate
 	Number int
 }
 
@@ -20,7 +19,7 @@ func NewSolve(strategies []Strategy) Solve {
 	return Solve{strategies}
 }
 
-func (s Solve) Solve(b sudoku.Board) Board {
+func (s Solve) Solve(b sudoku.Board) sudoku.Board {
 	return s.solve(b, sudoku.Board{})
 }
 
