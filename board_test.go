@@ -20,9 +20,9 @@ func Test_returns_the_missing_numbers_of_a_cell(t *testing.T) {
 		[9]int{0, 7, 3, 8, 5, 0, 0, 0, 2},
 	}
 
-	assert.Nil(t, board.MissingNumbersInCell(0, 0))
-	assert.Equal(t, []int{4, 7, 8, 9}, board.MissingNumbersInCell(4, 5))
-	assert.Equal(t, []int{7, 9}, board.MissingNumbersInCell(0, 3))
+	assert.Nil(t, board.MissingNumbersInCell(sudoku.Coordinate{0, 0}))
+	assert.Equal(t, []int{4, 7, 8, 9}, board.MissingNumbersInCell(sudoku.Coordinate{4, 5}))
+	assert.Equal(t, []int{7, 9}, board.MissingNumbersInCell(sudoku.Coordinate{0, 3}))
 }
 
 func Test_returns_if_board_is_complete(t *testing.T) {
@@ -53,4 +53,11 @@ func Test_returns_if_board_is_complete(t *testing.T) {
 	}
 
 	assert.Equal(t, completeBoard.IsComplete(), true)
+}
+
+func Test_gets_the_start_and_end_coordinates_of_a_give_house(t *testing.T) {
+	startCoordinate, endCoordinate := sudoku.GetCoordinatesOfHouse(4)
+
+	assert.Equal(t, sudoku.Coordinate{X: 3, Y: 3}, startCoordinate)
+	assert.Equal(t, sudoku.Coordinate{X: 5, Y: 5}, endCoordinate)
 }

@@ -3,6 +3,7 @@ package strategies_test
 import (
 	"testing"
 
+	"github.com/lourenci/sudoku"
 	"github.com/lourenci/sudoku/solver"
 	"github.com/lourenci/sudoku/solver/strategies"
 	"github.com/stretchr/testify/assert"
@@ -76,5 +77,7 @@ func Test_finds_for_only_one_missing_number(t *testing.T) {
 		},
 	}
 
-	assert.ElementsMatch(t, []solver.Coordinate{{1, 7, 3}, {5, 2, 7}}, strategies.HiddenSingle{}.Find(annotations))
+	coordinate1 := sudoku.Coordinate{X: 1, Y: 7}
+	coordinate2 := sudoku.Coordinate{X: 5, Y: 2}
+	assert.ElementsMatch(t, []solver.Hint{{Coordinate: coordinate1, Number: 3}, {Coordinate: coordinate2, Number: 7}}, strategies.HiddenSingle{}.Find(annotations))
 }

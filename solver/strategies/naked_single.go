@@ -1,16 +1,20 @@
 package strategies
 
-import "github.com/lourenci/sudoku/solver"
+import (
+	"github.com/lourenci/sudoku"
+	"github.com/lourenci/sudoku/solver"
+)
 
 type NakedSingle struct{}
 
-func (n NakedSingle) Find(annotations solver.Annotations) []solver.Coordinate {
-	var findedNumbers []solver.Coordinate
+func (n NakedSingle) Find(annotations solver.Annotations) []solver.Hint {
+	var findedNumbers []solver.Hint
 
 	for x, col := range annotations {
 		for y, numbers := range col {
 			if len(numbers) == 1 {
-				findedNumbers = append(findedNumbers, solver.Coordinate{x, y, numbers[0]})
+				coordinate := sudoku.Coordinate{X: x, Y: y}
+				findedNumbers = append(findedNumbers, solver.Hint{Coordinate: coordinate, Number: numbers[0]})
 			}
 		}
 	}
