@@ -9,19 +9,19 @@ func NewAnnotation() Annotations {
 }
 
 func (a Annotations) Annotate(b sudoku.Board) Annotations {
-	for rowNumber := 0; rowNumber <= 8; rowNumber++ {
-		a[rowNumber] = make(map[int][]int)
+	for x := 0; x <= 8; x++ {
+		a[x] = make(map[int][]int)
 
-		for colNumber := 0; colNumber <= 8; colNumber++ {
-			a.annotateCellWithMissingNumbers(b, rowNumber, colNumber)
+		for y := 0; y <= 8; y++ {
+			a.annotateCellWithMissingNumbers(b, sudoku.Coordinate{X: x, Y: y})
 		}
 	}
 	return a
 }
 
-func (a Annotations) annotateCellWithMissingNumbers(b sudoku.Board, rowNumber int, colNumber int) {
-	missingNumbers := b.MissingNumbersInCell(rowNumber, colNumber)
+func (a Annotations) annotateCellWithMissingNumbers(b sudoku.Board, c sudoku.Coordinate) {
+	missingNumbers := b.MissingNumbersInCell(c)
 	if missingNumbers != nil {
-		a[rowNumber][colNumber] = missingNumbers
+		a[c.X][c.Y] = missingNumbers
 	}
 }

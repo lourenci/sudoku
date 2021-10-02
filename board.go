@@ -23,15 +23,15 @@ func (b Board) IsComplete() bool {
 	return true
 }
 
-func (b Board) MissingNumbersInCell(rowNumber int, colNumber int) []int {
+func (b Board) MissingNumbersInCell(coordinate Coordinate) []int {
 	var missingNumbers []int
 
-	if b.isCellFilled(rowNumber, colNumber) {
+	if b.isCellFilled(coordinate.X, coordinate.Y) {
 		return nil
 	}
 
 	for number := 1; number <= 9; number++ {
-		if !b.isNumberFilledInBoard(rowNumber, colNumber, number) {
+		if !b.isNumberFilledInBoard(coordinate, number) {
 			missingNumbers = append(missingNumbers, number)
 		}
 	}
@@ -46,16 +46,16 @@ func (b Board) isCellFilled(rowNumber int, colNumber int) bool {
 	return false
 }
 
-func (b Board) isNumberFilledInBoard(rowNumber int, colNumber int, number int) bool {
-	if b.isNumberFilledInRow(rowNumber, number) {
+func (b Board) isNumberFilledInBoard(coordinate Coordinate, number int) bool {
+	if b.isNumberFilledInRow(coordinate.X, number) {
 		return true
 	}
 
-	if b.isNumberFilledInCol(colNumber, number) {
+	if b.isNumberFilledInCol(coordinate.Y, number) {
 		return true
 	}
 
-	if b.isNumberFilledInHouse(getHouseNumberOfCell(rowNumber, colNumber), number) {
+	if b.isNumberFilledInHouse(getHouseNumberOfCell(coordinate), number) {
 		return true
 	}
 
@@ -86,12 +86,12 @@ func (b Board) isNumberFilledInHouse(houseNumber int, number int) bool {
 	return utils.FindIndex(numbersInHouse[:], number) != nil
 }
 
-func getHouseNumberOfCell(rowNumber, colNumber int) int {
+func getHouseNumberOfCell(coordinate Coordinate) int {
 	for i := 0; i <= 8; i++ {
 		startRow := i / 3 * 3
 		startCol := i % 3 * 3
 
-		if startRow+3 > rowNumber && startCol+3 > colNumber {
+		if startRow+3 > coordinate.X && startCol+3 > coordinate.Y {
 			return i
 		}
 	}
@@ -100,19 +100,30 @@ func getHouseNumberOfCell(rowNumber, colNumber int) int {
 }
 
 func (b Board) getFilledNumbersOfHouse(houseNumber int) [9]int {
-	startRow := houseNumber / 3 * 3
-	endRow := startRow + 3
-	startCol := houseNumber % 3 * 3
-	endCol := startCol + 3
+	startCoordinate, endCoordinate := GetCoordinatesOfHouse(houseNumber)
 
+	return b.getFilledNumbersInRange(startCoordinate, endCoordinate)
+}
+
+func (b Board) getFilledNumbersInRange(startCoordinate, endCoordinate Coordinate) [9]int {
 	var numbers [9]int
 	qtyNumbers := 0
-	for i := startRow; i < endRow; i++ {
-		for j := startCol; j < endCol; j++ {
+
+	for i := startCoordinate.X; i <= endCoordinate.X; i++ {
+		for j := startCoordinate.Y; j <= endCoordinate.Y; j++ {
 			numbers[qtyNumbers] = b[i][j]
 			qtyNumbers++
 		}
 	}
 
 	return numbers
+}
+
+func GetCoordinatesOfHouse(houseNumber int) (Coordinate, Coordinate) {
+	startRow := houseNumber / 3 * 3
+	endRow := startRow + 2
+	startCol := houseNumber % 3 * 3
+	endCol := startCol + 2
+
+	return Coordinate{X: startRow, Y: startCol}, Coordinate{X: endRow, Y: endCol}
 }
