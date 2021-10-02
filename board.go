@@ -26,7 +26,7 @@ func (b Board) IsComplete() bool {
 func (b Board) MissingNumbersInCell(coordinate Coordinate) []int {
 	var missingNumbers []int
 
-	if b.isCellFilled(coordinate.X, coordinate.Y) {
+	if b.isCellFilled(coordinate) {
 		return nil
 	}
 
@@ -39,8 +39,8 @@ func (b Board) MissingNumbersInCell(coordinate Coordinate) []int {
 	return missingNumbers
 }
 
-func (b Board) isCellFilled(rowNumber int, colNumber int) bool {
-	if b[rowNumber][colNumber] != 0 {
+func (b Board) isCellFilled(c Coordinate) bool {
+	if b[c.X][c.Y] != 0 {
 		return true
 	}
 	return false
