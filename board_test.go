@@ -22,6 +22,7 @@ func Test_returns_the_missing_numbers_of_a_cell(t *testing.T) {
 
 	assert.Nil(t, board.MissingNumbersInCell(0, 0))
 	assert.Equal(t, []int{4, 7, 8, 9}, board.MissingNumbersInCell(4, 5))
+	assert.Equal(t, []int{7, 9}, board.MissingNumbersInCell(0, 3))
 }
 
 func Test_returns_if_board_is_complete(t *testing.T) {
