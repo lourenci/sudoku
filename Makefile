@@ -8,6 +8,7 @@ help:
 test: ## Test the project
 	go test ./...
 
+.PHONY: coverage
 coverage: ## Generate the code coverage report
 	go test -coverprofile=coverage -covermode=atomic ./...
 
