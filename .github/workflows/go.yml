@@ -5,8 +5,10 @@ on:
     branches: [ main ]
   pull_request:
 
-jobs:
+env:
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
+jobs:
   build:
     runs-on: ubuntu-latest
     steps:
