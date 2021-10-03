@@ -47,3 +47,16 @@ func (a Annotations) getAnnotationsInRange(startCoordinate sudoku.Coordinate, en
 	}
 	return annotations
 }
+
+func (a Annotations) GetAnnotationsFromCol(colNumber int) Annotations {
+	annotations := make(Annotations)
+
+	for i, row := range a {
+		if row[colNumber] != nil {
+			annotations[i] = make(map[int][]int)
+			annotations[i][colNumber] = row[colNumber]
+		}
+	}
+
+	return annotations
+}

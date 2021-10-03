@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_finds_for_only_one_missing_number(t *testing.T) {
+func Test_finds_the_hidden_singles_in_the_houses(t *testing.T) {
 	annotations := solver.Annotations{
 		0: {
 			0: []int{2, 6, 8},
@@ -80,14 +80,21 @@ func Test_finds_for_only_one_missing_number(t *testing.T) {
 		t,
 		[]solver.Hint{
 			{Coordinate: sudoku.Coordinate{X: 0, Y: 5}, Number: 1},
+			{Coordinate: sudoku.Coordinate{X: 1, Y: 7}, Number: 1},
+			{Coordinate: sudoku.Coordinate{X: 6, Y: 4}, Number: 1},
+			{Coordinate: sudoku.Coordinate{X: 4, Y: 7}, Number: 2},
 			{Coordinate: sudoku.Coordinate{X: 5, Y: 3}, Number: 2},
 			{Coordinate: sudoku.Coordinate{X: 0, Y: 7}, Number: 3},
 			{Coordinate: sudoku.Coordinate{X: 3, Y: 0}, Number: 3},
 			{Coordinate: sudoku.Coordinate{X: 3, Y: 7}, Number: 4},
 			{Coordinate: sudoku.Coordinate{X: 6, Y: 1}, Number: 4},
+			{Coordinate: sudoku.Coordinate{X: 4, Y: 6}, Number: 5},
+			{Coordinate: sudoku.Coordinate{X: 8, Y: 3}, Number: 5},
 			{Coordinate: sudoku.Coordinate{X: 6, Y: 8}, Number: 5},
+			{Coordinate: sudoku.Coordinate{X: 2, Y: 5}, Number: 7},
 			{Coordinate: sudoku.Coordinate{X: 3, Y: 3}, Number: 7},
 			{Coordinate: sudoku.Coordinate{X: 5, Y: 5}, Number: 8},
+			{Coordinate: sudoku.Coordinate{X: 5, Y: 2}, Number: 6},
 		},
 		strategies.HiddenSingle{}.Find(annotations),
 	)
