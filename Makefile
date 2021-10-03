@@ -10,7 +10,7 @@ test: ## Test the project
 
 .PHONY: coverage
 coverage: ## Generate the code coverage report
-	go test -coverprofile=coverage -covermode=atomic ./...
+	go test -coverprofile=coverage.txt -covermode=atomic ./...
 
 open-coverage: coverage ## Generate the code coverage report and open in the browser
-	go tool cover -html=coverage
+	go tool cover -html=coverage.txt

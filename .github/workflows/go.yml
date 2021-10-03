@@ -19,7 +19,7 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: 1.17
-    - name: Run coverage
+    - name: Run specs and coverage
       run: make coverage
     - name: Upload coverage to Codecov
       run: bash <(curl -s https://codecov.io/bash)
