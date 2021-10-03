@@ -25,3 +25,25 @@ func (a Annotations) annotateCellWithMissingNumbers(b sudoku.Board, c sudoku.Coo
 		a[c.X][c.Y] = missingNumbers
 	}
 }
+
+func (a Annotations) GetAnnotationsFromHouse(houseNumber int) Annotations {
+	startCoordinate, endCoordinate := sudoku.GetCoordinatesOfHouse(houseNumber)
+
+	return a.getAnnotationsInRange(startCoordinate, endCoordinate)
+}
+
+func (a Annotations) getAnnotationsInRange(startCoordinate sudoku.Coordinate, endCoordinate sudoku.Coordinate) Annotations {
+	annotations := make(Annotations)
+	for i := startCoordinate.X; i <= endCoordinate.X; i++ {
+		for j := startCoordinate.Y; j <= endCoordinate.Y; j++ {
+			if a[i][j] != nil {
+				if annotations[i] == nil {
+					annotations[i] = make(map[int][]int)
+				}
+
+				annotations[i][j] = a[i][j]
+			}
+		}
+	}
+	return annotations
+}

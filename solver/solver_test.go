@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_solves_the_board_using_the_naked_single_strategy(t *testing.T) {
+func Test_solves_the_board_using_the_specified_strategies(t *testing.T) {
 	board := sudoku.Board{
 		{0, 9, 4, 0, 5, 0, 7, 0, 0},
 		{0, 3, 5, 0, 8, 2, 0, 0, 4},
@@ -34,5 +34,5 @@ func Test_solves_the_board_using_the_naked_single_strategy(t *testing.T) {
 		{0, 0, 9, 0, 7, 0, 4, 0, 3},
 	}
 
-	assert.Equal(t, expectedBoard, solver.NewSolve([]solver.Strategy{strategies.HiddenSingle{}}).Solve(board))
+	assert.Equal(t, expectedBoard, solver.NewSolve([]solver.Strategy{strategies.NakedSingle{}}).Solve(board))
 }
