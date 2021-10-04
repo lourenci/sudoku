@@ -56,7 +56,7 @@ func dedupHiddenSingles(hiddenSingles []solver.Hint) []solver.Hint {
 	var dedupedFindedNumbers []solver.Hint
 
 	for _, hint := range hiddenSingles {
-		if !isDup(dedupedFindedNumbers, hint) {
+		if !some(dedupedFindedNumbers, hint) {
 			dedupedFindedNumbers = append(dedupedFindedNumbers, hint)
 		}
 	}
@@ -64,7 +64,7 @@ func dedupHiddenSingles(hiddenSingles []solver.Hint) []solver.Hint {
 	return dedupedFindedNumbers
 }
 
-func isDup(dedupedFindedNumbers []solver.Hint, hint solver.Hint) bool {
+func some(dedupedFindedNumbers []solver.Hint, hint solver.Hint) bool {
 	for _, findedNumber := range dedupedFindedNumbers {
 		if hint.X == findedNumber.X && hint.Y == findedNumber.Y {
 			return true
@@ -78,9 +78,14 @@ func findHiddenSinglesInAnnotations(annotations solver.Annotations) []solver.Hin
 
 	for i, row := range annotations {
 		for j, cell := range row {
-			for _, number := range cell {
-				if !isNumberInOtherAnnotations(number, annotations) {
-					findedNumbers = append(findedNumbers, solver.Hint{Coordinate: sudoku.Coordinate{X: i, Y: j}, Number: number})
+			for _, annotationsInCell := range cell {
+				if !isNumberAnnotatedInOtherCells(annotationsInCell, annotations) {
+					findedNumbers = append(findedNumbers,
+						solver.Hint{
+							Coordinate: sudoku.Coordinate{X: i, Y: j},
+							Number:     annotationsInCell,
+						},
+					)
 				}
 			}
 		}
@@ -89,10 +94,10 @@ func findHiddenSinglesInAnnotations(annotations solver.Annotations) []solver.Hin
 	return findedNumbers
 }
 
-func isNumberInOtherAnnotations(number int, houseAnnotation solver.Annotations) bool {
+func isNumberAnnotatedInOtherCells(number int, annotations solver.Annotations) bool {
 	qtyAppearance := 0
 
-	for _, row := range houseAnnotation {
+	for _, row := range annotations {
 		for _, cell := range row {
 			if utils.FindIndex(cell, number) != nil {
 				qtyAppearance++
