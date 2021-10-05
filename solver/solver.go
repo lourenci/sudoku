@@ -20,10 +20,10 @@ func NewSolve(strategies []Strategy) Solve {
 }
 
 func (s Solve) Solve(b sudoku.Board) sudoku.Board {
-	return s.solve(b, sudoku.Board{})
+	return s.tryToSolve(b, sudoku.Board{})
 }
 
-func (s Solve) solve(b sudoku.Board, previousBoard sudoku.Board) sudoku.Board {
+func (s Solve) tryToSolve(b sudoku.Board, previousBoard sudoku.Board) sudoku.Board {
 	if b == previousBoard {
 		return b
 	}
@@ -32,11 +32,15 @@ func (s Solve) solve(b sudoku.Board, previousBoard sudoku.Board) sudoku.Board {
 
 	annotations := NewAnnotation().Annotate(b)
 
-	findeds := s.strategies[0].Find(annotations)
+	var findeds []Hint
+
+	for _, strategy := range s.strategies {
+		findeds = append(findeds, strategy.Find(annotations)...)
+	}
 
 	for _, coordinate := range findeds {
 		b[coordinate.X][coordinate.Y] = coordinate.Number
 	}
 
-	return s.solve(b, previousBoard)
+	return s.tryToSolve(b, previousBoard)
 }
