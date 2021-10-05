@@ -40,10 +40,7 @@ func (b Board) MissingNumbersInCell(coordinate Coordinate) []int {
 }
 
 func (b Board) isCellFilled(c Coordinate) bool {
-	if b[c.X][c.Y] != 0 {
-		return true
-	}
-	return false
+	return b[c.X][c.Y] != 0
 }
 
 func (b Board) isNumberFilledInBoard(coordinate Coordinate, number int) bool {

@@ -3,12 +3,25 @@ package solver
 import "github.com/lourenci/sudoku"
 
 type Strategy interface {
-	Find(Annotations) []Hint
+	Find(Annotations) []NumberHint
 }
 
-type Hint struct {
-	sudoku.Coordinate
+type NumberHint struct {
+	Coordinate sudoku.Coordinate
 	Number int
+}
+
+type BoardSector int
+
+const (
+	Row BoardSector = iota
+	Col
+	House
+)
+
+type AnnotationHint struct {
+	Coordinate sudoku.Coordinate
+	BoardSector
 }
 
 type Solve struct {
@@ -32,10 +45,10 @@ func (s Solve) solve(b sudoku.Board, previousBoard sudoku.Board) sudoku.Board {
 
 	annotations := NewAnnotation().Annotate(b)
 
-	findeds := s.strategies[0].Find(annotations)
+	hints := s.strategies[0].Find(annotations)
 
-	for _, coordinate := range findeds {
-		b[coordinate.X][coordinate.Y] = coordinate.Number
+	for _, hint := range hints {
+		b[hint.Coordinate.X][hint.Coordinate.Y] = hint.Number
 	}
 
 	return s.solve(b, previousBoard)

@@ -257,3 +257,7 @@ func Test_get_annotations_in_a_given_col(t *testing.T) {
 
 	assert.Equal(t, expectedAnnotations, annotations.GetAnnotationsFromCol(4))
 }
+
+func Test_fixes_numbers_crossing_out_any_annotations_of_them_in_other_cell_row_house(t *testing.T) {
+
+}

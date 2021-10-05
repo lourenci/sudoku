@@ -79,7 +79,7 @@ func Test_finds_for_naked_single(t *testing.T) {
 
 	assert.ElementsMatch(
 		t,
-		[]solver.Hint{{Coordinate: sudoku.Coordinate{X: 1, Y: 7}, Number: 3}, {Coordinate: sudoku.Coordinate{X: 5, Y: 2}, Number: 7}},
+		[]solver.NumberHint{{Coordinate: sudoku.Coordinate{X: 1, Y: 7}, Number: 3}, {Coordinate: sudoku.Coordinate{X: 5, Y: 2}, Number: 7}},
 		strategies.NakedSingle{}.Find(annotations),
 	)
 }

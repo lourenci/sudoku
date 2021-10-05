@@ -3,13 +3,12 @@ package strategies_test
 import (
 	"testing"
 
-	"github.com/lourenci/sudoku"
 	"github.com/lourenci/sudoku/solver"
 	"github.com/lourenci/sudoku/solver/strategies"
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_finds_the_hidden_singles_in_the_annotations(t *testing.T) {
+func Test_finds_the_naked_pairs_in_the_same_row(t *testing.T) {
 	annotations := solver.Annotations{
 		0: {
 			0: []int{2, 6, 8},
@@ -45,7 +44,7 @@ func Test_finds_the_hidden_singles_in_the_annotations(t *testing.T) {
 		4: {
 			1: []int{5, 7, 8},
 			2: []int{7, 8},
-			6: []int{5, 8},
+			6: []int{7, 8},
 			7: []int{2, 8},
 		},
 		5: {
@@ -78,24 +77,7 @@ func Test_finds_the_hidden_singles_in_the_annotations(t *testing.T) {
 
 	assert.ElementsMatch(
 		t,
-		[]solver.NumberHint{
-			{Coordinate: sudoku.Coordinate{X: 0, Y: 5}, Number: 1},
-			{Coordinate: sudoku.Coordinate{X: 1, Y: 7}, Number: 1},
-			{Coordinate: sudoku.Coordinate{X: 6, Y: 4}, Number: 1},
-			{Coordinate: sudoku.Coordinate{X: 4, Y: 7}, Number: 2},
-			{Coordinate: sudoku.Coordinate{X: 5, Y: 3}, Number: 2},
-			{Coordinate: sudoku.Coordinate{X: 0, Y: 7}, Number: 3},
-			{Coordinate: sudoku.Coordinate{X: 3, Y: 0}, Number: 3},
-			{Coordinate: sudoku.Coordinate{X: 3, Y: 7}, Number: 4},
-			{Coordinate: sudoku.Coordinate{X: 6, Y: 1}, Number: 4},
-			{Coordinate: sudoku.Coordinate{X: 4, Y: 6}, Number: 5},
-			{Coordinate: sudoku.Coordinate{X: 8, Y: 3}, Number: 5},
-			{Coordinate: sudoku.Coordinate{X: 6, Y: 8}, Number: 5},
-			{Coordinate: sudoku.Coordinate{X: 2, Y: 5}, Number: 7},
-			{Coordinate: sudoku.Coordinate{X: 3, Y: 3}, Number: 7},
-			{Coordinate: sudoku.Coordinate{X: 5, Y: 5}, Number: 8},
-			{Coordinate: sudoku.Coordinate{X: 5, Y: 2}, Number: 6},
-		},
-		strategies.HiddenSingle{}.Find(annotations),
+		[]solver.AnnotationHint{},
+		strategies.NakedPair{}.Find(annotations),
 	)
 }
