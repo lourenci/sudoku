@@ -39,7 +39,7 @@ func (s Solve) tryToSolve(b sudoku.Board, previousBoard sudoku.Board) sudoku.Boa
 
 func fillBoardUsingTheHints(hints []Hint, b sudoku.Board) sudoku.Board {
 	for _, coordinate := range hints {
-		b[coordinate.X][coordinate.Y] = coordinate.Number
+		b = b.Fill(coordinate.Coordinate, coordinate.Number)
 	}
 
 	return b
