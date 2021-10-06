@@ -32,15 +32,24 @@ func (s Solve) tryToSolve(b sudoku.Board, previousBoard sudoku.Board) sudoku.Boa
 
 	annotations := NewAnnotation().Annotate(b)
 
-	var findeds []Hint
+	hints := s.findHintsUsingTheAnnotations(annotations)
 
-	for _, strategy := range s.strategies {
-		findeds = append(findeds, strategy.Find(annotations)...)
-	}
+	return s.tryToSolve(fillBoardUsingTheHints(hints, b), previousBoard)
+}
 
-	for _, coordinate := range findeds {
+func fillBoardUsingTheHints(hints []Hint, b sudoku.Board) sudoku.Board {
+	for _, coordinate := range hints {
 		b[coordinate.X][coordinate.Y] = coordinate.Number
 	}
 
-	return s.tryToSolve(b, previousBoard)
+	return b
+}
+
+func (s Solve) findHintsUsingTheAnnotations(annotations Annotations) []Hint {
+	var hints []Hint
+
+	for _, strategy := range s.strategies {
+		hints = append(hints, strategy.Find(annotations)...)
+	}
+	return hints
 }

@@ -11,6 +11,11 @@ type Coordinate struct {
 	Y int
 }
 
+func (b Board) Fill(coordinate Coordinate, number int) Board {
+	b[coordinate.X][coordinate.Y] = number
+	return b
+}
+
 func (b Board) IsComplete() bool {
 	for _, row := range b {
 		for _, number := range row {
@@ -40,10 +45,7 @@ func (b Board) MissingNumbersInCell(coordinate Coordinate) []int {
 }
 
 func (b Board) isCellFilled(c Coordinate) bool {
-	if b[c.X][c.Y] != 0 {
-		return true
-	}
-	return false
+	return b[c.X][c.Y] != 0
 }
 
 func (b Board) isNumberFilledInBoard(coordinate Coordinate, number int) bool {
