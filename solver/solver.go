@@ -11,19 +11,19 @@ type Hint struct {
 	Number int
 }
 
-type Solve struct {
+type Solver struct {
 	strategies []Strategy
 }
 
-func NewSolve(strategies []Strategy) Solve {
-	return Solve{strategies}
+func NewSolver(strategies []Strategy) Solver {
+	return Solver{strategies}
 }
 
-func (s Solve) Solve(b sudoku.Board) sudoku.Board {
+func (s Solver) Solve(b sudoku.Board) sudoku.Board {
 	return s.tryToSolve(b, sudoku.Board{})
 }
 
-func (s Solve) tryToSolve(b sudoku.Board, previousBoard sudoku.Board) sudoku.Board {
+func (s Solver) tryToSolve(b sudoku.Board, previousBoard sudoku.Board) sudoku.Board {
 	if b == previousBoard {
 		return b
 	}
@@ -45,7 +45,7 @@ func fillBoardUsingTheHints(hints []Hint, b sudoku.Board) sudoku.Board {
 	return b
 }
 
-func (s Solve) findHintsUsingTheAnnotations(annotations Annotations) []Hint {
+func (s Solver) findHintsUsingTheAnnotations(annotations Annotations) []Hint {
 	var hints []Hint
 
 	for _, strategy := range s.strategies {
