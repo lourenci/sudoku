@@ -257,3 +257,42 @@ func Test_get_annotations_in_a_given_col(t *testing.T) {
 
 	assert.Equal(t, expectedAnnotations, annotations.GetAnnotationsFromCol(4))
 }
+
+func Test_fills_the_coordinates_with_the_given_notes(t *testing.T) {
+	annotations := solver.Annotations{
+		8: {
+			0: []int{4, 9},
+			7: []int{1, 9},
+		},
+	}
+
+	annotations.Fill(sudoku.Coordinate{X: 8, Y: 1}, []int{4, 9})
+	assert.Equal(t, solver.Annotations{
+		8: {
+			0: []int{4, 9},
+			1: []int{4, 9},
+			7: []int{1, 9},
+		},
+	}, annotations)
+
+	annotations.Fill(sudoku.Coordinate{X: 8, Y: 7}, []int{4, 9})
+	assert.Equal(t, solver.Annotations{
+		8: {
+			0: []int{4, 9},
+			1: []int{4, 9},
+			7: []int{4, 9},
+		},
+	}, annotations)
+
+	annotations.Fill(sudoku.Coordinate{X: 0, Y: 0}, []int{4, 9})
+	assert.Equal(t, solver.Annotations{
+		0: {
+			0: []int{4,9},
+		},
+		8: {
+			0: []int{4, 9},
+			1: []int{4, 9},
+			7: []int{4, 9},
+		},
+	}, annotations)
+}
