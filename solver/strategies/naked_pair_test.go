@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_finds_for_naked_pair_in_the_row(t *testing.T) {
+func Test_finds_for_naked_pairs(t *testing.T) {
 	annotations := solver.Annotations{
 		0: {
 			1: []int{5, 8},
@@ -16,7 +16,6 @@ func Test_finds_for_naked_pair_in_the_row(t *testing.T) {
 			3: []int{7, 9},
 			6: []int{1, 5, 7},
 			7: []int{1, 7},
-			8: []int{1, 4, 5, 7},
 		},
 		1: {
 			2: []int{2, 8},
@@ -77,6 +76,7 @@ func Test_finds_for_naked_pair_in_the_row(t *testing.T) {
 	}
 
 	assert.ElementsMatch(t, []solver.AnnotationHint{
+		{Annotations: solver.Annotations{2: {4: []int{7, 9} }, 6: { 4: []int{7, 9} }}},
 		{Annotations: solver.Annotations{5: {1: []int{3, 6}, 5: []int{3, 6}}}},
 		{Annotations: solver.Annotations{8: {6: []int{1, 9}, 7: []int{1, 9}}}},
 	}, strategies.NakedPair{}.Find(annotations))
