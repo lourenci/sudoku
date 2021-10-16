@@ -64,6 +64,7 @@ func Test_finds_for_naked_pairs(t *testing.T) {
 			1: []int{2, 5},
 			2: []int{2, 9},
 			3: []int{3, 7, 9},
+			5: []int{6, 9},
 			6: []int{3, 7, 9},
 			8: []int{3, 6, 7},
 		},
@@ -76,8 +77,9 @@ func Test_finds_for_naked_pairs(t *testing.T) {
 	}
 
 	assert.ElementsMatch(t, []solver.AnnotationHint{
-		{Annotations: solver.Annotations{2: {4: []int{7, 9} }, 6: { 4: []int{7, 9} }}},
+		{Annotations: solver.Annotations{2: {4: []int{7, 9}}, 6: {4: []int{7, 9}}}},
 		{Annotations: solver.Annotations{5: {1: []int{3, 6}, 5: []int{3, 6}}}},
+		{Annotations: solver.Annotations{7: {5: []int{6, 9}}, 8: {5: []int{6, 9}}}},
 		{Annotations: solver.Annotations{8: {6: []int{1, 9}, 7: []int{1, 9}}}},
 	}, strategies.NakedPair{}.Find(annotations))
 }

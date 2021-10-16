@@ -46,27 +46,40 @@ func findNakedPairsInCols(annotations solver.Annotations) []solver.AnnotationHin
 	var nakedPairs []solver.AnnotationHint
 
 	for colNumber := 0; colNumber <= 8; colNumber++ {
-		possibleNakedPairInRow := make(map[int][]int)
 		colAnnotations := annotations.GetAnnotationsFromCol(colNumber)
 
-		for x, row := range colAnnotations {
-			for y, cell := range row {
-				isNakedPair := len(cell) == 2
-				if isNakedPair {
-					for possibleNakedX, possibleNaked := range possibleNakedPairInRow {
+		nakedPairs = append(nakedPairs, findNakedPairsInAnnotations(colAnnotations)...)
+	}
+
+	return nakedPairs
+}
+
+func findNakedPairsInAnnotations(annotations solver.Annotations) []solver.AnnotationHint {
+	var nakedPairs []solver.AnnotationHint
+	possibleNakedPairInRow := make(solver.Annotations)
+
+	for x, row := range annotations {
+		for y, cell := range row {
+			isNakedPair := len(cell) == 2
+			if isNakedPair {
+				for possibleNakedX, possibleNaked := range possibleNakedPairInRow {
+					for possibleNakedY, possibleNaked := range possibleNaked {
 						if possibleNaked[0] == cell[0] && possibleNaked[1] == cell[1] {
 							a := solver.NewAnnotation()
-							a.Fill(sudoku.Coordinate{X: possibleNakedX, Y: y }, cell)
+							a.Fill(sudoku.Coordinate{X: possibleNakedX, Y: possibleNakedY}, cell)
 							a.Fill(sudoku.Coordinate{X: x, Y: y}, cell)
 							nakedPairs = append(nakedPairs, solver.AnnotationHint{Annotations: a})
 						}
 					}
-
-					possibleNakedPairInRow[x] = append(possibleNakedPairInRow[x], cell...)
 				}
+
+				if possibleNakedPairInRow[x] == nil {
+					possibleNakedPairInRow[x] = make(map[int][]int)
+				}
+
+				possibleNakedPairInRow[x][y] = cell
 			}
 		}
-
 	}
 
 	return nakedPairs
