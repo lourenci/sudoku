@@ -11,6 +11,10 @@ type Hint struct {
 	Number int
 }
 
+type AnnotationHint struct {
+	Annotations
+}
+
 type Solver struct {
 	strategies []Strategy
 }

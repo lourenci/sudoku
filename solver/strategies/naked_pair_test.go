@@ -3,13 +3,12 @@ package strategies_test
 import (
 	"testing"
 
-	"github.com/lourenci/sudoku"
 	"github.com/lourenci/sudoku/solver"
 	"github.com/lourenci/sudoku/solver/strategies"
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_finds_for_naked_single(t *testing.T) {
+func Test_finds_for_naked_pairs(t *testing.T) {
 	annotations := solver.Annotations{
 		0: {
 			1: []int{5, 8},
@@ -17,7 +16,6 @@ func Test_finds_for_naked_single(t *testing.T) {
 			3: []int{7, 9},
 			6: []int{1, 5, 7},
 			7: []int{1, 7},
-			8: []int{1, 4, 5, 7},
 		},
 		1: {
 			2: []int{2, 8},
@@ -51,7 +49,7 @@ func Test_finds_for_naked_single(t *testing.T) {
 			1: []int{3, 6},
 			2: []int{7},
 			4: []int{1, 7, 9},
-			5: []int{7, 9},
+			5: []int{3, 6},
 			8: []int{1, 3, 7},
 		},
 		6: {
@@ -66,6 +64,7 @@ func Test_finds_for_naked_single(t *testing.T) {
 			1: []int{2, 5},
 			2: []int{2, 9},
 			3: []int{3, 7, 9},
+			5: []int{6, 9},
 			6: []int{3, 7, 9},
 			8: []int{3, 6, 7},
 		},
@@ -77,12 +76,10 @@ func Test_finds_for_naked_single(t *testing.T) {
 		},
 	}
 
-	assert.ElementsMatch(
-		t,
-		[]solver.Hint{
-			{Coordinate: sudoku.Coordinate{X: 1, Y: 7}, Number: 3},
-			{Coordinate: sudoku.Coordinate{X: 5, Y: 2}, Number: 7},
-		},
-		strategies.NakedSingle{}.Find(annotations),
-	)
+	assert.ElementsMatch(t, []solver.AnnotationHint{
+		{Annotations: solver.Annotations{2: {4: []int{7, 9}}, 6: {4: []int{7, 9}}}},
+		{Annotations: solver.Annotations{5: {1: []int{3, 6}, 5: []int{3, 6}}}},
+		{Annotations: solver.Annotations{7: {5: []int{6, 9}}, 8: {5: []int{6, 9}}}},
+		{Annotations: solver.Annotations{8: {6: []int{1, 9}, 7: []int{1, 9}}}},
+	}, strategies.NakedPair{}.Find(annotations))
 }

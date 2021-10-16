@@ -37,6 +37,9 @@ func Test_solves_the_board_using_the_specified_strategies(t *testing.T) {
 	assert.Equal(
 		t,
 		expectedBoard,
-		solver.NewSolver([]solver.Strategy{strategies.HiddenSingle{}, strategies.NakedSingle{}}).Solve(board),
+		solver.NewSolver([]solver.Strategy{
+			strategies.HiddenSingle{},
+			strategies.NakedSingle{},
+		}).Solve(board),
 	)
 }

@@ -19,6 +19,27 @@ func (a Annotations) Annotate(b sudoku.Board) Annotations {
 	return a
 }
 
+func (a Annotations) GetAnnotationsFromCol(colNumber int) Annotations {
+	annotations := make(Annotations)
+
+	for i, row := range a {
+		if row[colNumber] != nil {
+			annotations[i] = make(map[int][]int)
+			annotations[i][colNumber] = row[colNumber]
+		}
+	}
+
+	return annotations
+}
+
+func (a Annotations) Fill(coordinate sudoku.Coordinate, numbers []int) {
+	if a[coordinate.X] == nil {
+		a[coordinate.X] = make(map[int][]int)
+	}
+
+	a[coordinate.X][coordinate.Y] = numbers
+}
+
 func (a Annotations) annotateCellWithMissingNumbers(b sudoku.Board, c sudoku.Coordinate) {
 	missingNumbers := b.MissingNumbersInCell(c)
 	if missingNumbers != nil {
@@ -45,18 +66,5 @@ func (a Annotations) getAnnotationsInRange(startCoordinate sudoku.Coordinate, en
 			}
 		}
 	}
-	return annotations
-}
-
-func (a Annotations) GetAnnotationsFromCol(colNumber int) Annotations {
-	annotations := make(Annotations)
-
-	for i, row := range a {
-		if row[colNumber] != nil {
-			annotations[i] = make(map[int][]int)
-			annotations[i][colNumber] = row[colNumber]
-		}
-	}
-
 	return annotations
 }
