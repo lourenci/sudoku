@@ -1,6 +1,7 @@
 package sudoku
 
 import (
+	"regexp"
 	"strconv"
 )
 
@@ -9,6 +10,8 @@ type Board [9][9]int
 func Parse(board string) Board {
 	var parsedBoard [9][9]int
 	var row [9]int
+
+	board = removeNonDigitsFromString(board)
 
 	for i, rune := range board {
 		colNumber := i % 9
@@ -19,11 +22,17 @@ func Parse(board string) Board {
 		value, _ := strconv.Atoi(string(rune))
 		row[colNumber] = value
 
-		if i > 0 && (i%8 == 0 || i+1 == len(board)) {
+		isEndOfRow := i > 0 && (i%8 == 0 || i+1 == len(board))
+		if isEndOfRow {
 			rowNumber := i / 9
 			parsedBoard[rowNumber] = row
 		}
 	}
 
 	return parsedBoard
+}
+
+func removeNonDigitsFromString(str string) string {
+	regex := regexp.MustCompile("\\D")
+	return string(regex.ReplaceAll([]byte(str), []byte("")))
 }
