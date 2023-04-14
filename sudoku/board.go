@@ -11,13 +11,13 @@ func Parse(board string) Board {
 	var row [9]int
 
 	for i, rune := range board {
-		if i%9 == 0 {
+		colNumber := i % 9
+		if colNumber == 0 {
 			row = [9]int{}
 		}
 
 		value, _ := strconv.Atoi(string(rune))
-		cellNumber := i % 9
-		row[cellNumber] = value
+		row[colNumber] = value
 
 		if i > 0 && (i%8 == 0 || i+1 == len(board)) {
 			rowNumber := i / 9
