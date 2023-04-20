@@ -140,3 +140,23 @@ func TestColumn(t *testing.T) {
 		assert.Equals(t, board.Column(8), [9]int{9, 9, 9, 9, 9, 9, 9, 9, 9})
 	})
 }
+
+func TestRow(t *testing.T) {
+	t.Run("it returns the board's row", func(t *testing.T) {
+		board := sudoku.Parse(`
+			123 456 789
+			123 456 789
+			123 456 789
+
+			123 456 789
+			123 456 789
+			123 456 789
+
+			123 456 789
+			123 456 789
+			987654321
+		`)
+		assert.Equals(t, board.Row(0), [9]int{1, 2, 3, 4, 5, 6, 7, 8, 9})
+		assert.Equals(t, board.Row(8), [9]int{9, 8, 7, 6, 5, 4, 3, 2, 1})
+	})
+}

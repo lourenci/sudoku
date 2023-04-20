@@ -46,6 +46,18 @@ func (r Board) Column(number int) [9]int {
 	return column
 }
 
+func (r Board) Row(number int) [9]int {
+	var row [9]int
+
+	for i, iv := range r {
+		if i == number {
+			row = iv
+		}
+	}
+
+	return row
+}
+
 func removeNonDigitsFromString(str string) string {
 	regex := regexp.MustCompile(`\D`)
 	return string(regex.ReplaceAll([]byte(str), []byte("")))
