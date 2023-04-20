@@ -23,8 +23,6 @@ func TestParse(t *testing.T) {
 				123 456 789
 				123 456 789
 				123 456 789
-
-				f
 			`),
 			sudoku.Board(
 				[9][9]int{
@@ -72,6 +70,37 @@ func TestParse(t *testing.T) {
 	})
 
 	t.Run("it doesn't accept more than 81 numbers (a 9x9 board)", func(t *testing.T) {
+		assert.Equals(
+			t,
+			sudoku.Parse(`
+				123 456 789
+				123 456 789
+				123 456 789
+
+				123 456 789
+				123 456 789
+				123 456 789
+
+				123 456 789
+				123 456 789
+				123 456 789
+
+				f
+			`),
+			sudoku.Board(
+				[9][9]int{
+					{1, 2, 3, 4, 5, 6, 7, 8, 9},
+					{1, 2, 3, 4, 5, 6, 7, 8, 9},
+					{1, 2, 3, 4, 5, 6, 7, 8, 9},
+					{1, 2, 3, 4, 5, 6, 7, 8, 9},
+					{1, 2, 3, 4, 5, 6, 7, 8, 9},
+					{1, 2, 3, 4, 5, 6, 7, 8, 9},
+					{1, 2, 3, 4, 5, 6, 7, 8, 9},
+					{1, 2, 3, 4, 5, 6, 7, 8, 9},
+					{1, 2, 3, 4, 5, 6, 7, 8, 9},
+				},
+			),
+		)
 		assert.PanicsWithMessage(t, func() {
 			sudoku.Parse(`
 				123 456 789
