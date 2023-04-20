@@ -32,6 +32,20 @@ func Parse(board string) Board {
 	return parsedBoard
 }
 
+func (r Board) Column(number int) [9]int {
+	var column [9]int
+
+	for i, iv := range r {
+		for j, jv := range iv {
+			if j == number {
+				column[i] = jv
+			}
+		}
+	}
+
+	return column
+}
+
 func removeNonDigitsFromString(str string) string {
 	regex := regexp.MustCompile(`\D`)
 	return string(regex.ReplaceAll([]byte(str), []byte("")))

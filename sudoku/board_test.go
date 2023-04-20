@@ -120,3 +120,23 @@ func TestParse(t *testing.T) {
 		}, "please, provide a 9x9 board")
 	})
 }
+
+func TestColumn(t *testing.T) {
+	t.Run("it returns the board's column", func(t *testing.T) {
+		board := sudoku.Parse(`
+			123 456 789
+			123 456 789
+			123 456 789
+
+			123 456 789
+			123 456 789
+			123 456 789
+
+			123 456 789
+			123 456 789
+			123 456 789
+		`)
+		assert.Equals(t, board.Column(0), [9]int{1, 1, 1, 1, 1, 1, 1, 1, 1})
+		assert.Equals(t, board.Column(8), [9]int{9, 9, 9, 9, 9, 9, 9, 9, 9})
+	})
+}
