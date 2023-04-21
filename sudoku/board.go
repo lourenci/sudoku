@@ -5,7 +5,15 @@ import (
 	"strconv"
 )
 
-type Board [9][9]int
+type Board struct {
+	numbers [9][9]int
+}
+
+func NewBoard(numbers [9][9]int) Board {
+	return Board{
+		numbers: numbers,
+	}
+}
 
 func Parse(board string) Board {
 	var parsedBoard [9][9]int
@@ -29,13 +37,13 @@ func Parse(board string) Board {
 		parsedBoard[rowNumber] = row
 	}
 
-	return parsedBoard
+	return NewBoard(parsedBoard)
 }
 
 func (r Board) Column(number int) [9]int {
 	var column [9]int
 
-	for i, iv := range r {
+	for i, iv := range r.numbers {
 		for j, jv := range iv {
 			if j == number {
 				column[i] = jv
@@ -49,7 +57,7 @@ func (r Board) Column(number int) [9]int {
 func (r Board) Row(number int) [9]int {
 	var row [9]int
 
-	for i, iv := range r {
+	for i, iv := range r.numbers {
 		if i == number {
 			row = iv
 		}

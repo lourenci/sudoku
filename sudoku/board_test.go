@@ -24,7 +24,7 @@ func TestParse(t *testing.T) {
 				123 456 789
 				123 456 789
 			`),
-			sudoku.Board(
+			sudoku.NewBoard(
 				[9][9]int{
 					{1, 2, 3, 4, 5, 6, 7, 8, 9},
 					{1, 2, 3, 4, 5, 6, 7, 8, 9},
@@ -44,7 +44,7 @@ func TestParse(t *testing.T) {
 		assert.Equals(
 			t,
 			sudoku.Parse("12345678923"),
-			sudoku.Board(
+			sudoku.NewBoard(
 				[9][9]int{
 					{1, 2, 3, 4, 5, 6, 7, 8, 9},
 					{2, 3, 0, 0, 0, 0, 0, 0, 0},
@@ -60,7 +60,7 @@ func TestParse(t *testing.T) {
 				123 456 789
 				235b00 233
 			`),
-			sudoku.Board(
+			sudoku.NewBoard(
 				[9][9]int{
 					{1, 2, 3, 4, 5, 6, 7, 8, 9},
 					{2, 3, 5, 0, 0, 2, 3, 3, 0},
@@ -87,7 +87,7 @@ func TestParse(t *testing.T) {
 
 				f
 			`),
-			sudoku.Board(
+			sudoku.NewBoard(
 				[9][9]int{
 					{1, 2, 3, 4, 5, 6, 7, 8, 9},
 					{1, 2, 3, 4, 5, 6, 7, 8, 9},
