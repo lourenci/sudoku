@@ -8,6 +8,13 @@ import (
 func Equals[T any](t *testing.T, actual T, expected T) {
 	t.Helper()
 
+	// `DeepEqual` considers empty slice/arrays as not equals.
+	if reflect.TypeOf(actual).Kind() == reflect.Slice {
+		if reflect.ValueOf(actual).Len() == 0 && reflect.ValueOf(expected).Len() == 0 {
+			return
+		}
+	}
+
 	if !reflect.DeepEqual(actual, expected) {
 		t.Fatalf(`expected: "%v"; got it: "%v"`, expected, actual)
 	}
