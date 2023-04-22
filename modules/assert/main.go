@@ -1,13 +1,14 @@
 package assert
 
 import (
+	"reflect"
 	"testing"
 )
 
-func Equals[T comparable](t *testing.T, actual T, expected T) {
+func Equals[T any](t *testing.T, actual T, expected T) {
 	t.Helper()
 
-	if actual != expected {
+	if !reflect.DeepEqual(actual, expected) {
 		t.Fatalf(`expected: "%v"; got it: "%v"`, expected, actual)
 	}
 }
