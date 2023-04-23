@@ -54,16 +54,16 @@ func (r Board) Column(number int) [9]int {
 	return column
 }
 
-func (r Board) Row(number int) [9]int {
-	var row [9]int
+func (r Board) Row(number int) []int {
+	var rowNumbers []int
 
-	for i, iv := range r.numbers {
-		if i == number {
-			row = iv
+	for _, v := range r.numbers[number] {
+		if v != 0 {
+			rowNumbers = append(rowNumbers, v)
 		}
 	}
 
-	return row
+	return rowNumbers
 }
 
 func removeNonDigitsFromString(str string) string {
