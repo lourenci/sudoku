@@ -40,13 +40,13 @@ func Parse(board string) Board {
 	return NewBoard(parsedBoard)
 }
 
-func (r Board) Column(number int) [9]int {
-	var column [9]int
+func (r Board) Column(number int) []int {
+	var column []int
 
-	for i, iv := range r.numbers {
+	for _, iv := range r.numbers {
 		for j, jv := range iv {
-			if j == number {
-				column[i] = jv
+			if j == number && jv != 0 {
+				column = append(column, jv)
 			}
 		}
 	}
