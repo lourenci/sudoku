@@ -20,3 +20,18 @@ func Except[T comparable](everything, except []T) []T {
 
 	return result
 }
+
+func Intersect[T comparable](x, y []T) []T {
+	var result []T
+
+	for _, iv := range x {
+		for _, jv := range y {
+			if jv == iv {
+				result = append(result, iv)
+				break
+			}
+		}
+	}
+
+	return result
+}
