@@ -7,7 +7,7 @@ import (
 	"lourenci.com/sudoku/modules/assert"
 )
 
-func TestParse(t *testing.T) {
+func TestParsedBoard(t *testing.T) {
 	t.Run("it parses the string to a board", func(t *testing.T) {
 		assert.Equals(
 			t,
@@ -259,5 +259,112 @@ func TestAnnotate(t *testing.T) {
 			sudoku.NewCoordinate(8, 6): {1, 4, 7, 9},
 			sudoku.NewCoordinate(8, 8): {1, 3, 9},
 		})
+	})
+}
+
+func TestFill(t *testing.T) {
+	t.Run("fills a board's cell with a number", func(t *testing.T) {
+		board := sudoku.ParsedBoard(`
+			123 456 789
+			123 456 789
+			123 456 789
+
+			123 456 789
+			123 456 789
+			123 456 789
+
+			123 456 789
+			123 456 789
+			123 456 789
+		`)
+		board.Fill(sudoku.NewCoordinate(5, 5), 9)
+
+		expectedBoard := sudoku.ParsedBoard(`
+			123 456 789
+			123 456 789
+			123 456 789
+
+			123 456 789
+			123 456 789
+			123 459 789
+
+			123 456 789
+			123 456 789
+			123 456 789
+		`)
+
+		assert.Equals(
+			t,
+			board,
+			expectedBoard,
+		)
+	})
+
+	t.Run("panics when an invalid board number is given", func(t *testing.T) {
+		assert.NotPanics(t, func() {
+			board := sudoku.ParsedBoard(`
+				123 456 789
+				123 456 789
+				123 456 789
+
+				123 456 789
+				123 456 789
+				123 456 789
+
+				123 456 789
+				123 456 789
+				123 456 789
+			`)
+			board.Fill(sudoku.NewCoordinate(5, 5), 9)
+		})
+		assert.PanicsWithMessage(t, func() {
+			board := sudoku.ParsedBoard(`
+			123 456 789
+			123 456 789
+			123 456 789
+
+			123 456 789
+			123 456 789
+			123 456 789
+
+			123 456 789
+			123 456 789
+			123 456 789
+		`)
+			board.Fill(sudoku.NewCoordinate(5, 5), 10)
+		}, "invalid number")
+
+		assert.NotPanics(t, func() {
+			board := sudoku.ParsedBoard(`
+				123 456 789
+				123 456 789
+				123 456 789
+
+				123 456 789
+				123 456 789
+				123 456 789
+
+				123 456 789
+				123 456 789
+				123 456 789
+			`)
+			board.Fill(sudoku.NewCoordinate(5, 5), 1)
+		})
+		assert.PanicsWithMessage(t, func() {
+			board := sudoku.ParsedBoard(`
+			123 456 789
+			123 456 789
+			123 456 789
+
+			123 456 789
+			123 456 789
+			123 456 789
+
+			123 456 789
+			123 456 789
+			123 456 789
+		`)
+			board.Fill(sudoku.NewCoordinate(5, 5), 0)
+		}, "invalid number")
 	})
 }

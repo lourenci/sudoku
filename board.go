@@ -7,10 +7,6 @@ import (
 	"lourenci.com/sudoku/modules/collections"
 )
 
-type Coordinate struct {
-	x, y int
-}
-
 type Board struct {
 	numbers [9][9]int
 }
@@ -44,6 +40,10 @@ func ParsedBoard(board string) Board {
 	}
 
 	return NewBoard(parsedBoard)
+}
+
+func (r Board) Numbers() [9][9]int {
+	return r.numbers
 }
 
 func (r Board) Column(number int) []int {
@@ -113,8 +113,12 @@ func (r Board) Annotations() map[Coordinate][]int {
 	return annotations
 }
 
-func NewCoordinate(x, y int) Coordinate {
-	return Coordinate{x, y}
+func (r *Board) Fill(coordinate Coordinate, number int) {
+	if number < 1 || number > 9 {
+		panic("invalid number")
+	}
+
+	r.numbers[coordinate.x][coordinate.y] = number
 }
 
 func removeNonDigitsFromString(str string) string {
