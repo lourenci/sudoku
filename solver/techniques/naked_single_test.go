@@ -8,8 +8,8 @@ import (
 	"github.com/lourenci/sudoku/solver/techniques"
 )
 
-func TestFullHouse(t *testing.T) {
-	t.Run("it solves the board using the full house technique", func(t *testing.T) {
+func TestNakedSingle(t *testing.T) {
+	t.Run("it solves the board using the naked single technique", func(t *testing.T) {
 		board := sudoku.ParsedBoard(`
 			040 908 010
 			000 720 000
@@ -23,7 +23,7 @@ func TestFullHouse(t *testing.T) {
 			000 143 020
 			000 560 080
 		`)
-		techniques.FullHouse{}.Solve(&board)
+		techniques.NakedSingle{}.Solve(&board)
 
 		expectedBoard := sudoku.ParsedBoard(`
 			040 908 010

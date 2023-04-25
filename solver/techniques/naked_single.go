@@ -1,12 +1,12 @@
 package techniques
 
-type FullHouse struct{}
+type NakedSingle struct{}
 
-func (FullHouse) Name() string {
-	return "Full House"
+func (NakedSingle) Name() string {
+	return "Naked Single"
 }
 
-func (FullHouse) Solve(board Board) {
+func (NakedSingle) Solve(board Board) {
 	for c, annotations := range board.Annotations() {
 		if len(annotations) == 1 {
 			board.Fill(c, annotations[0])
