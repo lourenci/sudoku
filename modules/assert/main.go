@@ -40,3 +40,17 @@ func PanicsWithMessage(t *testing.T, fn func(), msg string) {
 
 	fn()
 }
+
+func NotPanics(t *testing.T, fn func()) {
+	t.Helper()
+
+	defer func() {
+		r := recover()
+
+		if r != nil {
+			t.Fatalf("expected not to panic, but it panicked")
+		}
+	}()
+
+	fn()
+}
