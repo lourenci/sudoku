@@ -5,6 +5,10 @@ import (
 	"strconv"
 )
 
+type Coordinate struct {
+	x, y int
+}
+
 type Board struct {
 	numbers [9][9]int
 }
@@ -64,6 +68,31 @@ func (r Board) Row(number int) []int {
 	}
 
 	return rowNumbers
+}
+
+func (r Board) House(coordinate Coordinate) []int {
+	startX := (coordinate.x) / 3 * 3
+	endX := startX + 2
+
+	startY := (coordinate.y) / 3 * 3
+	endY := startY + 2
+
+	var rowNumbers []int
+
+	for i := startX; i <= endX; i++ {
+		for j := startY; j <= endY; j++ {
+			number := r.numbers[i][j]
+			if number != 0 {
+				rowNumbers = append(rowNumbers, number)
+			}
+		}
+	}
+
+	return rowNumbers
+}
+
+func NewCoordinate(x, y int) Coordinate {
+	return Coordinate{x, y}
 }
 
 func removeNonDigitsFromString(str string) string {
