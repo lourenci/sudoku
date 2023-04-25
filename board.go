@@ -21,7 +21,7 @@ func NewBoard(numbers [9][9]int) Board {
 	}
 }
 
-func Parse(board string) Board {
+func ParsedBoard(board string) Board {
 	var parsedBoard [9][9]int
 	var row [9]int
 
