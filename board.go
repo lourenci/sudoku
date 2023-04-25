@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"strconv"
 
-	"lourenci.com/sudoku/modules/collections"
+	"github.com/lourenci/sudoku/modules/collections"
 )
 
 type Board struct {

@@ -1,6 +1,6 @@
 package techniques
 
-import "lourenci.com/sudoku"
+import "github.com/lourenci/sudoku"
 
 type Board interface {
 	Numbers() [9][9]int

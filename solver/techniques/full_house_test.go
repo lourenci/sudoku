@@ -3,9 +3,9 @@ package techniques_test
 import (
 	"testing"
 
-	"lourenci.com/sudoku"
-	"lourenci.com/sudoku/modules/assert"
-	"lourenci.com/sudoku/solver/techniques"
+	"github.com/lourenci/sudoku"
+	"github.com/lourenci/sudoku/modules/assert"
+	"github.com/lourenci/sudoku/solver/techniques"
 )
 
 func TestFullHouse(t *testing.T) {

@@ -1,3 +1,3 @@
-module lourenci.com/sudoku
+module github.com/lourenci/sudoku
 
 go 1.20

@@ -3,8 +3,8 @@ package collections_test
 import (
 	"testing"
 
-	"lourenci.com/sudoku/modules/assert"
-	"lourenci.com/sudoku/modules/collections"
+	"github.com/lourenci/sudoku/modules/assert"
+	"github.com/lourenci/sudoku/modules/collections"
 )
 
 func TestExcept(t *testing.T) {
