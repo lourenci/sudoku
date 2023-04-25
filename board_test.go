@@ -3,8 +3,8 @@ package sudoku_test
 import (
 	"testing"
 
+	"lourenci.com/sudoku"
 	"lourenci.com/sudoku/modules/assert"
-	"lourenci.com/sudoku/sudoku"
 )
 
 func TestParse(t *testing.T) {
