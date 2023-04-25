@@ -3,6 +3,8 @@ package sudoku
 import (
 	"regexp"
 	"strconv"
+
+	"lourenci.com/sudoku/modules/collections"
 )
 
 type Coordinate struct {
@@ -89,6 +91,26 @@ func (r Board) House(coordinate Coordinate) []int {
 	}
 
 	return rowNumbers
+}
+
+func (r Board) Annotations() map[Coordinate][]int {
+	annotations := make(map[Coordinate][]int)
+	numbers := [9]int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+
+	for rowNumber, iv := range r.numbers {
+		for columnNumber, cellNumber := range iv {
+			if cellNumber == 0 {
+				possibleNumbersInRow := collections.Except(numbers[:], r.Row(rowNumber)[:])
+				possibleNumbersInColumn := collections.Except(numbers[:], r.Column(columnNumber)[:])
+				possibleNumbersInHouse := collections.Except(numbers[:], r.House(NewCoordinate(rowNumber, columnNumber)))
+				possibleNumbersInBothRowColAndHouse := collections.Intersect(collections.Intersect(possibleNumbersInRow, possibleNumbersInColumn), possibleNumbersInHouse)
+
+				annotations[NewCoordinate(rowNumber, columnNumber)] = possibleNumbersInBothRowColAndHouse
+			}
+		}
+	}
+
+	return annotations
 }
 
 func NewCoordinate(x, y int) Coordinate {
