@@ -68,7 +68,7 @@ func (r Board) row(number int) []int {
 	return rowNumbers
 }
 
-func (r Board) House(coordinate Coordinate) []int {
+func (r Board) house(coordinate Coordinate) []int {
 	startX := (coordinate.X) / 3 * 3
 	endX := startX + 2
 
@@ -106,7 +106,7 @@ func (r Board) Annotations() map[Coordinate][]int {
 				)
 				possibleNumbersInHouse := collections.Except(
 					numbers[:],
-					r.House(NewCoordinate(rowNumber, columnNumber)),
+					r.house(NewCoordinate(rowNumber, columnNumber)),
 				)
 				possibleNumbersInBothRowColAndHouse := collections.Intersect(
 					collections.Intersect(possibleNumbersInRow, possibleNumbersInColumn),

@@ -121,31 +121,6 @@ func TestParsedBoard(t *testing.T) {
 	})
 }
 
-func TestHouse(t *testing.T) {
-	t.Run("it returns the board's house", func(t *testing.T) {
-		board := sudoku.ParsedBoard(`
-			123 456 789
-			123 406 789
-			123 456 789
-
-			123 456 789
-			123 456 789
-			123 456 789
-
-			123 456 789
-			123 456 789
-			987 654 301
-		`)
-		assert.Equals(t, board.House(sudoku.NewCoordinate(6, 6)), []int{7, 8, 9, 7, 8, 9, 3, 1})
-		assert.Equals(t, board.House(sudoku.NewCoordinate(8, 8)), []int{7, 8, 9, 7, 8, 9, 3, 1})
-		assert.Equals(t, board.House(sudoku.NewCoordinate(5, 5)), []int{4, 5, 6, 4, 5, 6, 4, 5, 6})
-		assert.Equals(t, board.House(sudoku.NewCoordinate(3, 3)), []int{4, 5, 6, 4, 5, 6, 4, 5, 6})
-		assert.Equals(t, board.House(sudoku.NewCoordinate(0, 0)), []int{1, 2, 3, 1, 2, 3, 1, 2, 3})
-		assert.Equals(t, board.House(sudoku.NewCoordinate(2, 2)), []int{1, 2, 3, 1, 2, 3, 1, 2, 3})
-		assert.Equals(t, board.House(sudoku.NewCoordinate(8, 1)), []int{1, 2, 3, 1, 2, 3, 9, 8, 7})
-	})
-}
-
 func TestAnnotate(t *testing.T) {
 	t.Run("it returns the possible numbers for each of the non-filled cell", func(t *testing.T) {
 		board := sudoku.ParsedBoard(`
