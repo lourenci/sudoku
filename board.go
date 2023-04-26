@@ -56,7 +56,7 @@ func (r Board) column(number int) []int {
 	return column
 }
 
-func (r Board) Row(number int) []int {
+func (r Board) row(number int) []int {
 	var rowNumbers []int
 
 	for _, v := range r.numbers[number] {
@@ -98,7 +98,7 @@ func (r Board) Annotations() map[Coordinate][]int {
 			if cellNumber == 0 {
 				possibleNumbersInRow := collections.Except(
 					numbers[:],
-					r.Row(rowNumber)[:],
+					r.row(rowNumber)[:],
 				)
 				possibleNumbersInColumn := collections.Except(
 					numbers[:],
