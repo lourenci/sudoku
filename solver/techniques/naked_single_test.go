@@ -41,8 +41,8 @@ func TestNakedSingle(t *testing.T) {
 
 		assert.Equals(
 			t,
-			board.Numbers(),
-			expectedBoard.Numbers(),
+			board,
+			expectedBoard,
 		)
 	})
 }

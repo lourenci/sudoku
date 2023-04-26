@@ -42,10 +42,6 @@ func ParsedBoard(board string) Board {
 	return NewBoard(parsedBoard)
 }
 
-func (r Board) Numbers() [9][9]int {
-	return r.numbers
-}
-
 func (r Board) Column(number int) []int {
 	var column []int
 
