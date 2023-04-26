@@ -42,6 +42,46 @@ func ParsedBoard(board string) Board {
 	return NewBoard(parsedBoard)
 }
 
+func (r Board) Annotations() map[Coordinate][]int {
+	annotations := make(map[Coordinate][]int)
+	numbers := [9]int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+
+	for rowNumber, iv := range r.numbers {
+		for columnNumber, cellNumber := range iv {
+			if cellNumber == 0 {
+				possibleNumbersInRow := collections.Except(
+					numbers[:],
+					r.row(rowNumber)[:],
+				)
+				possibleNumbersInColumn := collections.Except(
+					numbers[:],
+					r.column(columnNumber)[:],
+				)
+				possibleNumbersInHouse := collections.Except(
+					numbers[:],
+					r.house(NewCoordinate(rowNumber, columnNumber)),
+				)
+				possibleNumbersInBothRowColAndHouse := collections.Intersect(
+					collections.Intersect(possibleNumbersInRow, possibleNumbersInColumn),
+					possibleNumbersInHouse,
+				)
+
+				annotations[NewCoordinate(rowNumber, columnNumber)] = possibleNumbersInBothRowColAndHouse
+			}
+		}
+	}
+
+	return annotations
+}
+
+func (r *Board) Fill(coordinate Coordinate, number int) {
+	if number < 1 || number > 9 {
+		panic("invalid number")
+	}
+
+	r.numbers[coordinate.X][coordinate.Y] = number
+}
+
 func (r Board) column(number int) []int {
 	var column []int
 
@@ -87,46 +127,6 @@ func (r Board) house(coordinate Coordinate) []int {
 	}
 
 	return rowNumbers
-}
-
-func (r Board) Annotations() map[Coordinate][]int {
-	annotations := make(map[Coordinate][]int)
-	numbers := [9]int{1, 2, 3, 4, 5, 6, 7, 8, 9}
-
-	for rowNumber, iv := range r.numbers {
-		for columnNumber, cellNumber := range iv {
-			if cellNumber == 0 {
-				possibleNumbersInRow := collections.Except(
-					numbers[:],
-					r.row(rowNumber)[:],
-				)
-				possibleNumbersInColumn := collections.Except(
-					numbers[:],
-					r.column(columnNumber)[:],
-				)
-				possibleNumbersInHouse := collections.Except(
-					numbers[:],
-					r.house(NewCoordinate(rowNumber, columnNumber)),
-				)
-				possibleNumbersInBothRowColAndHouse := collections.Intersect(
-					collections.Intersect(possibleNumbersInRow, possibleNumbersInColumn),
-					possibleNumbersInHouse,
-				)
-
-				annotations[NewCoordinate(rowNumber, columnNumber)] = possibleNumbersInBothRowColAndHouse
-			}
-		}
-	}
-
-	return annotations
-}
-
-func (r *Board) Fill(coordinate Coordinate, number int) {
-	if number < 1 || number > 9 {
-		panic("invalid number")
-	}
-
-	r.numbers[coordinate.X][coordinate.Y] = number
 }
 
 func removeNonDigitsFromString(str string) string {
