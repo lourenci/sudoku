@@ -73,10 +73,10 @@ func (r Board) Row(number int) []int {
 }
 
 func (r Board) House(coordinate Coordinate) []int {
-	startX := (coordinate.x) / 3 * 3
+	startX := (coordinate.X) / 3 * 3
 	endX := startX + 2
 
-	startY := (coordinate.y) / 3 * 3
+	startY := (coordinate.Y) / 3 * 3
 	endY := startY + 2
 
 	var rowNumbers []int
@@ -100,10 +100,22 @@ func (r Board) Annotations() map[Coordinate][]int {
 	for rowNumber, iv := range r.numbers {
 		for columnNumber, cellNumber := range iv {
 			if cellNumber == 0 {
-				possibleNumbersInRow := collections.Except(numbers[:], r.Row(rowNumber)[:])
-				possibleNumbersInColumn := collections.Except(numbers[:], r.Column(columnNumber)[:])
-				possibleNumbersInHouse := collections.Except(numbers[:], r.House(NewCoordinate(rowNumber, columnNumber)))
-				possibleNumbersInBothRowColAndHouse := collections.Intersect(collections.Intersect(possibleNumbersInRow, possibleNumbersInColumn), possibleNumbersInHouse)
+				possibleNumbersInRow := collections.Except(
+					numbers[:],
+					r.Row(rowNumber)[:],
+				)
+				possibleNumbersInColumn := collections.Except(
+					numbers[:],
+					r.Column(columnNumber)[:],
+				)
+				possibleNumbersInHouse := collections.Except(
+					numbers[:],
+					r.House(NewCoordinate(rowNumber, columnNumber)),
+				)
+				possibleNumbersInBothRowColAndHouse := collections.Intersect(
+					collections.Intersect(possibleNumbersInRow, possibleNumbersInColumn),
+					possibleNumbersInHouse,
+				)
 
 				annotations[NewCoordinate(rowNumber, columnNumber)] = possibleNumbersInBothRowColAndHouse
 			}
@@ -118,7 +130,7 @@ func (r *Board) Fill(coordinate Coordinate, number int) {
 		panic("invalid number")
 	}
 
-	r.numbers[coordinate.x][coordinate.y] = number
+	r.numbers[coordinate.X][coordinate.Y] = number
 }
 
 func removeNonDigitsFromString(str string) string {
