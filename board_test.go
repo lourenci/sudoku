@@ -121,27 +121,6 @@ func TestParsedBoard(t *testing.T) {
 	})
 }
 
-func TestColumn(t *testing.T) {
-	t.Run("it returns the board's column", func(t *testing.T) {
-		board := sudoku.ParsedBoard(`
-			123 416 789
-			123 406 789
-			123 436 789
-
-			123 456 789
-			123 456 789
-			123 456 789
-
-			123 456 789
-			123 456 789
-			123 456 789
-		`)
-		assert.Equals(t, board.Column(0), []int{1, 1, 1, 1, 1, 1, 1, 1, 1})
-		assert.Equals(t, board.Column(8), []int{9, 9, 9, 9, 9, 9, 9, 9, 9})
-		assert.Equals(t, board.Column(4), []int{1, 3, 5, 5, 5, 5, 5, 5})
-	})
-}
-
 func TestRow(t *testing.T) {
 	t.Run("it returns the board's row", func(t *testing.T) {
 		board := sudoku.ParsedBoard(`

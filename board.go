@@ -42,7 +42,7 @@ func ParsedBoard(board string) Board {
 	return NewBoard(parsedBoard)
 }
 
-func (r Board) Column(number int) []int {
+func (r Board) column(number int) []int {
 	var column []int
 
 	for _, iv := range r.numbers {
@@ -102,7 +102,7 @@ func (r Board) Annotations() map[Coordinate][]int {
 				)
 				possibleNumbersInColumn := collections.Except(
 					numbers[:],
-					r.Column(columnNumber)[:],
+					r.column(columnNumber)[:],
 				)
 				possibleNumbersInHouse := collections.Except(
 					numbers[:],
